@@ -1,6 +1,4 @@
 <?php 
-require_once("objects/Curl.php");
-
 class Locations {
 
     private $api;

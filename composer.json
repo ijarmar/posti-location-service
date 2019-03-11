@@ -1,5 +1,11 @@
 {
     "require-dev": {
         "codeception/codeception": "^2.5"
+    },
+    "autoload": {
+        "classmap": [
+            "objects/Locations.php",
+            "objects/CurlRequest.php"
+        ]
     }
 }

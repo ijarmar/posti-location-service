@@ -1,5 +1,5 @@
 <?php 
-require_once("objects/Locations.php");
+require "vendor/autoload.php";
 
 $url = 'https://locationservice.posti.com/location';
 
