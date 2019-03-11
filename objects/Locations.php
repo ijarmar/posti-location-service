@@ -5,21 +5,21 @@ class Locations {
 
     private $api;
 
-    public function __construct($api) {
-        $this->api = $api;
+    public function __construct($apiURL) {
+        $this->apiURL = $apiURL;
     }
     
-    public function getLocationsByCity($city, $elementsArr) {
+    public function getLocationsByCity($city) {
 
-        $result = Curl::curlInitiate($this->api . '?city=' . $city);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
         $result = json_decode($result, true);
 
         return $result;
     }
 
-    public function getLocationsByZip($zip) {
+    public function getLocationsByZip($zipCode) {
 
-        $result = Curl::curlInitiate($this->api . '?zipCode=' . $zip);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode);
         $result = json_decode($result, true);
 
         return $result;
@@ -27,7 +27,7 @@ class Locations {
 
     public function getLocationsByMunicipality($municipality) {
 
-        $result = Curl::curlInitiate($this->api . '?municipality=' . $municipality);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?municipality=' . $municipality);
         $result = json_decode($result, true);
 
         return $result;
@@ -35,7 +35,7 @@ class Locations {
 
     public function getLocationsByPupCode($pupCode) {
 
-        $result = Curl::curlInitiate($this->api . '?pupCode=' . $pupCode);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?pupCode=' . $pupCode);
         $result = json_decode($result, true);
 
         return $result;
@@ -43,16 +43,34 @@ class Locations {
 
     public function getAllPublicNames($countryCode) {
         
-        $result = Curl::curlInitiate($this->api . '?countryCode=' . $countryCode);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode);
         $result = json_decode($result, true);
 
         $res = [];
 
         foreach ($result['locations'] as $location) {
-            array_push($res ,$location['address']['fi']);
+            array_push($res ,$location['publicName']['fi']);
         }
 
-        return $res;
+        return $res; // returns array with Posti location names
+    }
+
+    public function getAddressByPublicName($publicName) {
+
+        $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=FI');
+        $result = json_decode($result, true);
+
+        $res = [];
+
+        $pname = array_search($publicName, $result);
+        $address = array_search($address, $result);
+
+        // push publicName to address array
+        
+        // search array with array_search and save two elements in variables
+        
+        // push variables to $res array and return
+
     }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-class Curl {
+class CurlRequest {
 
     public static function curlInitiate($url) {
         $curl = curl_init(); // start curl session
