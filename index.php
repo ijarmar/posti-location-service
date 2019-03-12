@@ -17,7 +17,7 @@ $locations = new postiApi\Locations($url);
 
 //$arr = $locations->getAllPublicNames('FI');
 
-$arr = $locations->getAllLocations('FI');
+$arr = $locations->getAllLocations('FI', 0);
 
 ?>
 <!DOCTYPE html>
