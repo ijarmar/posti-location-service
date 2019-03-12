@@ -1,13 +1,15 @@
 <?php 
+namespace postiApi;
+
 class Locations {
 
     private $api;
 
-    public function __construct($apiURL) {
+    public function __construct(string $apiURL) {
         $this->apiURL = $apiURL;
     }
     
-    public function getLocationsByCity($city) {
+    public function getLocationsByCity(string $city) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
         $result = json_decode($result, true);
@@ -15,7 +17,7 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByZip($zipCode) {
+    public function getLocationsByZipCode(int $zipCode) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode);
         $result = json_decode($result, true);
@@ -23,7 +25,7 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByMunicipality($municipality) {
+    public function getLocationsByMunicipality( string $municipality) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?municipality=' . $municipality);
         $result = json_decode($result, true);
@@ -31,7 +33,7 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByPupCode($pupCode) {
+    public function getLocationsByPupCode(int $pupCode) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?pupCode=' . $pupCode);
         $result = json_decode($result, true);
@@ -39,36 +41,33 @@ class Locations {
         return $result;
     }
 
-    public function getAllPublicNames($countryCode) {
+    public function getAllLocations(string $countryCode, int $limit = null) {
         
-        $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode);
-        $result = json_decode($result, true);
-
-        $res = [];
-
-        foreach ($result['locations'] as $location) {
-            array_push($res ,$location['publicName']['fi']);
+        if($limit = null) {
+            $limit = 100;
         }
 
-        return $res; // returns array with Posti location names
-    }
-
-    public function getAddressByPublicName($publicName) {
-
-        $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=FI');
+        $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode . '&top=' . $limit);
         $result = json_decode($result, true);
 
-        $res = [];
+        return $result; // returns array with posti locations in the country limited by $limit
+    }
 
-        $pname = array_search($publicName, $result);
-        $address = array_search($address, $result);
+    public function getLocationsByStrictZipCode(int $zipCode, bool $strict) {
 
-        // push publicName to address array
-        
-        // search array with array_search and save two elements in variables
-        
-        // push variables to $res array and return
+        /**
+         * This is a DocBlock.
+         **/
+
+        $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode . '&strictZipCode=' . $strict);
+        $result = json_decode($result, true);
+
+        return $result;
+    }
+
+    public function getLocationsByCoordinates() {
 
     }
+    
 }
 ?>

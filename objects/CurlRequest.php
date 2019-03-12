@@ -1,4 +1,5 @@
 <?php
+namespace postiApi;
 class CurlRequest {
 
     public static function curlInitiate($url) {

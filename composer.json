@@ -4,8 +4,8 @@
     },
     "autoload": {
         "classmap": [
-            "objects/Locations.php",
-            "objects/CurlRequest.php"
+            {"postiApi\\": "objects/Locations.php"},
+            {"postiApi\\": "objects/CurlRequest.php"}
         ]
     }
 }
