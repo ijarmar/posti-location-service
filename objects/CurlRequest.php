@@ -11,7 +11,7 @@ class CurlRequest {
 
         curl_close($curl);
         
-        return $res; // returns an array
+        return $res; // returns json
     }
 
 }

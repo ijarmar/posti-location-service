@@ -41,10 +41,12 @@ class Locations {
         return $result;
     }
 
-    public function getAllLocations(string $countryCode, int $limit = null) {
+    public function getAllLocations(string $countryCode, int $limit) {
         
-        if($limit = null) {
-            $limit = 100;
+        if($limit == null) {
+            $top = '&top=' . 25;
+        } else if($limit == 0) {
+            $top = '&top=' . 25;
         }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode . '&top=' . $limit);
@@ -58,6 +60,11 @@ class Locations {
         /**
          * This is a DocBlock.
          **/
+        if($strict == null) {
+            $strict = 20;
+        } else if($strict == 0) {
+            $strict = 20;
+        }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode . '&strictZipCode=' . $strict);
         $result = json_decode($result, true);
@@ -65,7 +72,31 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByCoordinates() {
+    public function getLocationsByLatitude(int $lat, int $limit, int $distance) {
+
+        if($distance != null && $limit != null) {
+            $distance = '';
+        }
+        else if($limit == null && $distance != '') {
+            $limit = '';
+            $distance = '&distance=' . $distance;
+        } else {
+            $distance = '';
+        }
+
+        $limit = '&top=' . $limit;
+
+        $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . $limit . $distance);
+        $result = json_decode($result, true);
+
+        return $result;
+    }
+
+    public function getLocationsByLongitude(int $lng, int $limit, int $distance) {
+
+    }
+
+    public function getGeographicalBoxByCoordinates(int $topLeftLat, int $topLeftLng, int $bottomRightLat, int $bottomRightLng) {
 
     }
     
