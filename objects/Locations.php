@@ -58,13 +58,14 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByLatitude(int $lat, int $limit, int $distance = 0) {
+    public function getLocationsByLatitude(float $lat,int $limit,float $distance) {
         // can recieve only one param - limit || distance one has to be null
 
-        if($distance != null && $limit != null) {
+        if($distance != 0 && $limit != 0) {
             $distance = '';
+            $limit = '&top=' . $limit;
         }
-        else if($limit == null && $distance != '') {
+        else if($limit == 0 && $distance != 0) {
             $limit = '';
             $distance = '&distance=' . $distance;
         } else {
@@ -77,13 +78,14 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByLongitude(int $lng, int $limit, int $distance) {
+    public function getLocationsByLongitude(float $lng, int $limit, float $distance) {
         // can recieve only one param - limit || distance one has to be null
 
-        if($distance != null && $limit != null) {
+        if($distance != 0 && $limit != 0) {
             $distance = '';
+            $limit = '&top' . $limit;
         }
-        else if($limit == null && $distance != '') {
+        else if($limit == 0 && $distance != 0) {
             $limit = '';
             $distance = '&distance=' . $distance;
         } else {
@@ -91,15 +93,15 @@ class Locations {
             $limit = '&top=' . $limit;
         }
 
-        $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lat . $limit . $distance);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lng . $limit . $distance);
 
         return $result;
     }
 
-    public function getGeographicalBoxByCoordinates(int $topLeftLat, int $topLeftLng, int $bottomRightLat, int $bottomRightLng) {
+    public function getGeographicalBoxByCoordinates(float $topLeftLat, float $topLeftLng, float $bottomRightLat, float $bottomRightLng) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . 
-                                            '&topLeftLat=' . $topLeftLat .
+                                            '?topLeftLat=' . $topLeftLat .
                                             '&topLeftLng=' . $topLeftLng . 
                                             '&bottomRightLat=' . $bottomRightLat .
                                             '&bottomRightLng=' . $bottomRightLng);

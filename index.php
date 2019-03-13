@@ -20,7 +20,10 @@ $locations = new postiApi\Locations($url);
 //$arr = $locations->getAllLocations('FI', 0);
 
 //$arr = $locations->getLocationsByCity('Sibbo');
-$arr = $locations->getLocationsByStrictZipCode(13100);
+//$arr = $locations->getLocationsByStrictZipCode(13100);
+//$arr = $locations->getLocationsByLatitude(61.021528, 0, 500);
+//$arr = $locations->getLocationsByLongitude(24.469359, 0, 1);
+$arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389789074657, 60.118482801480674, 25.00262781092524);
 
 ?>
 <!DOCTYPE html>

@@ -2,7 +2,7 @@
 namespace postiApi;
 class CurlRequest {
 
-    public static function curlInitiate($url) {
+    public static function curlInitiate(string $url) {
         $curl = curl_init(); // start curl session
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
