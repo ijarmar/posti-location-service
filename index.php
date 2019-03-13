@@ -17,7 +17,10 @@ $locations = new postiApi\Locations($url);
 
 //$arr = $locations->getAllPublicNames('FI');
 
-$arr = $locations->getAllLocations('FI', 0);
+//$arr = $locations->getAllLocations('FI', 0);
+
+//$arr = $locations->getLocationsByCity('Sibbo');
+$arr = $locations->getLocationsByStrictZipCode(13100);
 
 ?>
 <!DOCTYPE html>
