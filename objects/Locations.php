@@ -21,7 +21,7 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByMunicipality( string $municipality) {
+    public function getLocationsByMunicipality(string $municipality) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?municipality=' . $municipality);
         return $result;
@@ -79,7 +79,7 @@ class Locations {
     }
 
     public function getLocationsByLongitude(float $lng, int $limit, float $distance) {
-        // can recieve only one param - limit || distance one has to be null
+        // can recieve only one param - limit || distance has to be equal to 0
 
         if($distance != 0 && $limit != 0) {
             $distance = '';

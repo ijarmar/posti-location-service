@@ -23,7 +23,7 @@ class CurlRequest {
             return array("message" => "Error in used parameters");
         }
         
-        return $res; // returns json
+        return $res; // returns an array
     }
 
 }
