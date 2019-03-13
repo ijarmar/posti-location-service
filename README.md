@@ -3,3 +3,9 @@ Unofficial PHP client for Posti location service. Check API documentation https:
 
 ## Installation
  - Run <code>composer install</code>
+
+## Function examples
+
+Function | Use
+-------- | ---
+<code>getLocationsByCity($city)</code> | Outputs all locations of Posti in the city
