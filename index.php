@@ -3,12 +3,9 @@ header('Content-Type: text/html; charset=utf-8');
 
 require "vendor/autoload.php";
 
-$url = 'https://locationservice.posti.com/location';
+$url = 'https://locationservice.posti.com/api/2/location/';
 
 $locations = new postiApi\Locations($url);
-//$info = ['id', 'address', 'pupCode']; // elements to be recieved
-//$info = [04130];
-//$info = [null];
 
 //$arr = $locations->getLocationsByCity('Sibbo', $info);
 
@@ -17,13 +14,25 @@ $locations = new postiApi\Locations($url);
 
 //$arr = $locations->getAllPublicNames('FI');
 
-//$arr = $locations->getAllLocations('FI', 0);
+//$allLocations = $locations->getAllLocations('FI', 0);
+
+/* $sijainnit = array();
+foreach ($allLocations as $location) {
+
+    $postoffice = new PostOffice($location);
+    array_push($sijainnit, $postOffice);
+    
+    $postOffice->getStreetNumber(sv);
+    # code...
+    // palauttaa array, 
+} */
 
 //$arr = $locations->getLocationsByCity('Sibbo');
 //$arr = $locations->getLocationsByStrictZipCode(13100);
 //$arr = $locations->getLocationsByLatitude(61.021528, 0, 500);
 //$arr = $locations->getLocationsByLongitude(24.469359, 0, 1);
-$arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389789074657, 60.118482801480674, 25.00262781092524);
+//$arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389789074657, 60.118482801480674, 25.00262781092524);
+$outputObjects = $locations->getLocationsByCity('Espoo');
 
 ?>
 <!DOCTYPE html>
@@ -35,6 +44,10 @@ $arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389
     <title>Document</title>
 </head>
 <body>
-   <?php print_r($arr); ?> 
+   <?php # print_r($outputObjects[0]['address']); ?>
+   <?php # print_r($outputObjects[0]->getAdress()); ?> 
+   <?php print("<pre>" . print_r($outputObjects, true) . "</pre>") ?> 
+
+
 </body>
 </html>

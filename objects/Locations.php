@@ -5,32 +5,46 @@ class Locations {
 
     private $api;
 
-    public function __construct(string $apiURL) {
+    public function __construct(string $apiURL, string $lang = null) {
         $this->apiURL = $apiURL;
+
+        if($lang == null) {
+            $this->lang = 'fi';
+        } else {
+            $this->lang = $lang;
+        }
     }
     
-    public function getLocationsByCity(string $city) {
+    public function getLocationsByCity(string $city, bool $raw = false) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
-        return $result; // returns array 
+        $output = CurlRequest::getOutput($result, $this->lang); // slim version of info
+
+        return $output;
     }
 
     public function getLocationsByZipCode(int $zipCode) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode);
-        return $result;
+        $output = CurlRequest::getOutput($result, $this->lang);
+
+        return $output;
     }
 
     public function getLocationsByMunicipality(string $municipality) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?municipality=' . $municipality);
-        return $result;
+        $output = CurlRequest::getOutput($result);
+
+        return $output;
     }
 
     public function getLocationsByPupCode(int $pupCode) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?pupCode=' . $pupCode);
-        return $result;
+        $output = CurlRequest::getOutput($result);
+
+        return $output;
     }
 
     public function getAllLocations(string $countryCode, int $limit) {
@@ -42,8 +56,9 @@ class Locations {
         }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode . $top);
+        $output = CurlRequest::getOutput($result);
 
-        return $result; // returns array with posti locations in the country limited by $limit
+        return $output;
     }
 
     public function getLocationsByStrictZipCode(int $zipCode, bool $strict = false) {
@@ -54,8 +69,9 @@ class Locations {
         }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode . '&strictZipCode=' . $strict);
+        $output = CurlRequest::getOutput($result);
 
-        return $result;
+        return $output;
     }
 
     public function getLocationsByLatitude(float $lat,int $limit,float $distance) {
@@ -74,8 +90,9 @@ class Locations {
         }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . $limit . $distance);
+        $output = CurlRequest::getOutput($result);
 
-        return $result;
+        return $output;
     }
 
     public function getLocationsByLongitude(float $lng, int $limit, float $distance) {
@@ -94,8 +111,9 @@ class Locations {
         }
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lng . $limit . $distance);
+        $output = CurlRequest::getOutput($result);
 
-        return $result;
+        return $output;
     }
 
     public function getGeographicalBoxByCoordinates(float $topLeftLat, float $topLeftLng, float $bottomRightLat, float $bottomRightLng) {
@@ -105,8 +123,9 @@ class Locations {
                                             '&topLeftLng=' . $topLeftLng . 
                                             '&bottomRightLat=' . $bottomRightLat .
                                             '&bottomRightLng=' . $bottomRightLng);
+        $output = CurlRequest::getOutput($result);
 
-        return $result;
+        return $output;
     }
     
 }

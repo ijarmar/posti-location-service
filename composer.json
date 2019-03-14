@@ -6,7 +6,8 @@
     "autoload": {
         "classmap": [
             {"postiApi\\": "objects/Locations.php"},
-            {"postiApi\\": "objects/CurlRequest.php"}
+            {"postiApi\\": "objects/CurlRequest.php"},
+            {"postiApi\\": "objects/Output.php"}
         ]
     }
 }

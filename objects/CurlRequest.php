@@ -26,5 +26,36 @@ class CurlRequest {
         return $res; // returns an array
     }
 
+    public static function getOutput($result, $lang = null) {
+
+        $output = [];
+
+        foreach($result['locations'] as $location) {
+            if($lang == null) {
+                $outputObj = new Output($location);
+            } else {
+                $outputObj = new Output($location, $lang);
+            }
+        
+            array_push($output, array(
+                                "id" => $outputObj->getId(),
+                                "type" => $outputObj->getType(),
+                                "postalCode" => $outputObj->getPostalCode(),
+                                "address" => $outputObj->getAddress(),
+                                "publicName" => $outputObj->getPublicName(),
+                                "labelName" => $outputObj->getLabelName(),
+                                "countryCode" => $outputObj->getCountryCode(),
+                                "phoneNumber" => $outputObj->getCustomerServicePhoneNumber(),
+                                "availability" => $outputObj->getAvailability(),
+                                "wheelChairAccess" => $outputObj->getWheelChairAccess(),
+                                "pupCode" => $outputObj->getPupCode(),
+                                "routingCode" => $outputObj->getRoutingServiceCode(),
+                                "coordinates" => $outputObj->getLocationCoordinates()
+                                )
+            );
+        }
+
+        return $output; // returns array 
+    }
 }
 ?>
