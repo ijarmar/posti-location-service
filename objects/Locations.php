@@ -20,14 +20,20 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
         $output = CurlRequest::getOutput($result, $this->lang); // slim version of info
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getLocationsByZipCode(int $zipCode) {
+    public function getLocationsByZipCode(int $zipCode, bool $raw = false) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode);
         $output = CurlRequest::getOutput($result, $this->lang);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
@@ -36,18 +42,24 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?municipality=' . $municipality);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getLocationsByPupCode(int $pupCode) {
+    public function getLocationsByPupCode(int $pupCode, bool $raw = false) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . '?pupCode=' . $pupCode);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getAllLocations(string $countryCode, int $limit) {
+    public function getAllLocations(string $countryCode, int $limit, bool $raw = false) {
 
         $top = '&top=25';
         
@@ -58,10 +70,13 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?countryCode=' . $countryCode . $top);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getLocationsByStrictZipCode(int $zipCode, bool $strict = false) {
+    public function getLocationsByStrictZipCode(int $zipCode, bool $strict = false, bool $raw = false) {
         if($strict) {
             $strict = 'true';
         } else {
@@ -71,10 +86,13 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?zipCode=' . $zipCode . '&strictZipCode=' . $strict);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getLocationsByLatitude(float $lat,int $limit,float $distance) {
+    public function getLocationsByLatitude(float $lat, int $limit, float $distance, bool $raw = false) {
         // can recieve only one param - limit || distance one has to be null
 
         if($distance != 0 && $limit != 0) {
@@ -92,10 +110,13 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . $limit . $distance);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getLocationsByLongitude(float $lng, int $limit, float $distance) {
+    public function getLocationsByLongitude(float $lng, int $limit, float $distance, bool $raw = false) {
         // can recieve only one param - limit || distance has to be equal to 0
 
         if($distance != 0 && $limit != 0) {
@@ -113,10 +134,13 @@ class Locations {
         $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lng . $limit . $distance);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
 
-    public function getGeographicalBoxByCoordinates(float $topLeftLat, float $topLeftLng, float $bottomRightLat, float $bottomRightLng) {
+    public function getGeographicalBoxByCoordinates(float $topLeftLat, float $topLeftLng, float $bottomRightLat, float $bottomRightLng, bool $raw = false) {
 
         $result = CurlRequest::curlInitiate($this->apiURL . 
                                             '?topLeftLat=' . $topLeftLat .
@@ -125,6 +149,9 @@ class Locations {
                                             '&bottomRightLng=' . $bottomRightLng);
         $output = CurlRequest::getOutput($result);
 
+        if($raw) {
+            return $result;
+        }
         return $output;
     }
     

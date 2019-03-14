@@ -44,10 +44,6 @@ $outputObjects = $locations->getLocationsByCity('Espoo');
     <title>Document</title>
 </head>
 <body>
-   <?php # print_r($outputObjects[0]['address']); ?>
-   <?php # print_r($outputObjects[0]->getAdress()); ?> 
    <?php print("<pre>" . print_r($outputObjects, true) . "</pre>") ?> 
-
-
 </body>
 </html>
