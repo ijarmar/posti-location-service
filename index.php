@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 require "vendor/autoload.php";
 
-$url = 'https://locationservice.posti.com/api/2/location/';
+$url = 'https://locationservice.posti.com/api/2/location';
 
 $locations = new postiApi\Locations($url);
 
