@@ -13,4 +13,4 @@ Function | Use
 
 ## Example output
 
-![example snippet](https://github.com/sovelluskontti/posti-location-service/carbon.png)
+<img src="./carbon.png" alt="example snippet">
