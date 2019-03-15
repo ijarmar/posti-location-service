@@ -6,11 +6,10 @@ class Output {
     public function __construct(array $outputArray, string $lang = null) {
         $this->outputArray = $outputArray;
         
-        if($lang == null) {
-            $this->lang = 'fi';
-        } else {
-            $this->lang = $lang;
+        if($this->checkIfNull($lang)) {
+            $lang = 'fi';
         }
+        $this->lang = $lang;
     }
 
     public function getRawOutput() {
@@ -50,7 +49,7 @@ class Output {
         if($this->outputArray['customerServicePhoneNumber'] != '') {
             return $this->outputArray['customerServicePhoneNumber'];
         }
-        return 'null';
+        return 'false';
     } 
 
     public function getAvailability() {
@@ -58,7 +57,7 @@ class Output {
         if($this->outputArray['availability'] != '') {
             return $this->outputArray['availability'];
         }
-        return 'null';
+        return 'false';
     }
 
     public function getWheelChairAccess() {
@@ -66,7 +65,7 @@ class Output {
         if($this->outputArray['wheelChairAccess'] != '') {
             return $this->outputArray['wheelChairAccess'];
         }
-        return 'null';
+        return 'false';
     }
 
     public function getPupCode() {
@@ -79,6 +78,13 @@ class Output {
 
     public function getLocationCoordinates() {
         return $this->outputArray['location'];
+    }
+
+    private function checkIfNull($param) {
+        if($param == null) {
+            return true;
+        }
+        return false;
     }
 }
 ?>

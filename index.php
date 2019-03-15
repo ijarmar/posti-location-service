@@ -9,9 +9,6 @@ $locations = new postiApi\Locations($url);
 
 //$arr = $locations->getLocationsByCity('Sibbo', $info);
 
-//echo '<body><pre>' . print_r($arr) . '</pre></body>';
-//print_r($arr['locations'][1]['type']); // output element of array
-
 //$arr = $locations->getAllPublicNames('FI');
 
 //$allLocations = $locations->getAllLocations('FI', 0);
@@ -22,8 +19,7 @@ foreach ($allLocations as $location) {
     $postoffice = new PostOffice($location);
     array_push($sijainnit, $postOffice);
     
-    $postOffice->getStreetNumber(sv);
-    # code...
+    $postOffice->getStreetNumber('sv');
     // palauttaa array, 
 } */
 
@@ -44,6 +40,7 @@ $outputObjects = $locations->getLocationsByCity('Espoo');
     <title>Document</title>
 </head>
 <body>
-   <?php print("<pre>" . print_r($outputObjects, true) . "</pre>") ?> 
+   <?php //print("<pre>" . print_r($outputObjects, true) . "</pre>") ?> 
+   <?php echo $outputObjects[0]['wheelChairAccess'] ?> 
 </body>
 </html>
