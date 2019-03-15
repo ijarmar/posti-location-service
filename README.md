@@ -25,7 +25,7 @@ Check objects/Locations.php for all functions
 <img src="./carbon.png" alt="example snippet">
 
 ## Extra params
-- To get raw data add `true` as second parameter to any function
+- To get raw data(original) add 'Raw' to any function in the end e.g `getLocationsByCityRaw(string $city)`
 - To change output language add second parameter `string '$lang'` in `new Locations($apiUrl, $lang)`
   supported languges are [fi, sv, en]
   
