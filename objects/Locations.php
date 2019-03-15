@@ -119,6 +119,33 @@ class Locations {
         return $wheelChairAccessTrue;
     }
 
+    public function getAvailableLocations(string $city) {
+
+        $currentTime = getdate();
+        $availablePosti = [];
+
+        $todayDay = $currentTime['wday'] - 1;
+        $nowHour = $currentTime['hours'];
+        $nowMinutes = $currentTime['minutes'];
+        $timeNow = $nowHour . '.' . $nowMinutes + 1;
+
+        $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
+
+        foreach($result['locations'] as $posti) {
+
+            $openingTimes = $posti['openingTimes'];
+            $today = $openingTimes[$todayDay];
+            $timeTo = $today['timeToWithPoint'];
+
+            if($timeTo > $timeNow) {
+                array_push($availablePosti, $posti);
+            }
+                
+        }
+
+        return $availablePosti;
+    }
+
     public function getLocationsByCityRaw(string $city) {
         $result = CurlRequest::curlInitiate($this->apiURL . '?city=' . $city);
         return $result;
@@ -190,7 +217,7 @@ class Locations {
 
         $wheelChairAccessTrue = [];
 
-        foreach($output as $posti) {
+        foreach($result['locations'] as $posti) {
             if(in_array('wheelChairAccess => true', $posti)) {
                 array_push($wheelChairAccessTrue, $posti);
             }

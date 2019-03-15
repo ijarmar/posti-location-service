@@ -29,7 +29,8 @@ foreach ($allLocations as $location) {
 //$arr = $locations->getLocationsByLongitude(24.469359, 0, 1);
 //$arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389789074657, 60.118482801480674, 25.00262781092524);
 //$arr = $locations->getLocationsByCity('Espoo');
-$arr = $locations->getAllWheelChairLocations('Helsinki');
+//$arr = $locations->getAllWheelChairLocationsRaw('Helsinki');
+$arr = $locations->getAvailableLocations('Hämeenlinna');
 
 ?>
 <!DOCTYPE html>
