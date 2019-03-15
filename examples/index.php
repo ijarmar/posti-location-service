@@ -5,6 +5,8 @@ $locations = new postiApi\Locations('https://locationservice.posti.com/api/2/loc
 if(isset($_GET['city'])) {
     $city = $_GET['city'];
     $searchResults = $locations->getLocationsByCity($city);
+} else {
+  $city = '';
 }
 
 ?>

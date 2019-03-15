@@ -31,7 +31,7 @@ class CurlRequest {
         $output = [];
 
         foreach($result['locations'] as $location) {
-            if($lang == null) {
+            if(empty($lang)) {
                 $outputObj = new Output($location);
             } else {
                 $outputObj = new Output($location, $lang);

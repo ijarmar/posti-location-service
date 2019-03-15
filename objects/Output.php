@@ -6,7 +6,7 @@ class Output {
     public function __construct(array $outputArray, string $lang = null) {
         $this->outputArray = $outputArray;
         
-        if($this->checkIfNull($lang)) {
+        if(empty($lang)) {
             $lang = 'fi';
         }
         $this->lang = $lang;
@@ -62,7 +62,7 @@ class Output {
 
     public function getWheelChairAccess() {
 
-        if($this->outputArray['wheelChairAccess'] != '') {
+        if($this->outputArray['wheelChairAccess'] === true) { // true
             return $this->outputArray['wheelChairAccess'];
         }
         return 'false';
@@ -80,11 +80,5 @@ class Output {
         return $this->outputArray['location'];
     }
 
-    private function checkIfNull($param) {
-        if($param == null) {
-            return true;
-        }
-        return false;
-    }
 }
 ?>

@@ -8,7 +8,7 @@ class Locations {
     public function __construct(string $apiURL, string $lang = null) {
         $this->apiURL = $apiURL;
 
-        if($this->checkIfNull($lang)) {
+        if(empty($lang)) {
             $lang = 'fi';
         }
         $this->lang = $lang;
@@ -68,43 +68,17 @@ class Locations {
         return $output;
     }
 
-    public function getLocationsByLatitude(float $lat, int $limit, float $distance) {
-        // can recieve only one param - limit || distance one has to be null
+    public function getLocationsByCoordinates(float $lat, float $lng, int $limit = 10, int $distance = 0) {
 
-        if($distance != 0 && $limit != 0) {
-            $distance = '';
+        if(isset($limit) && isset($distance)) {
+            $distance = '&distance' . $distance;
             $limit = '&top=' . $limit;
-        }
-        else if($limit == 0 && $distance != 0) {
-            $limit = '';
-            $distance = '&distance=' . $distance;
         } else {
             $distance = '';
             $limit = '&top=' . $limit;
         }
 
-        $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . $limit . $distance);
-        $output = CurlRequest::getOutput($result);
-
-        return $output;
-    }
-
-    public function getLocationsByLongitude(float $lng, int $limit, float $distance) {
-        // can recieve only one param - limit || distance has to be equal to 0
-
-        if($distance != 0 && $limit != 0) {
-            $distance = '';
-            $limit = '&top' . $limit;
-        }
-        else if($limit == 0 && $distance != 0) {
-            $limit = '';
-            $distance = '&distance=' . $distance;
-        } else {
-            $distance = '';
-            $limit = '&top=' . $limit;
-        }
-
-        $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lng . $limit . $distance);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . '&lng='. $lng . $limit . $distance);
         $output = CurlRequest::getOutput($result);
 
         return $output;
@@ -120,6 +94,29 @@ class Locations {
         $output = CurlRequest::getOutput($result);
 
         return $output;
+    }
+
+    public function getAllWheelChairLocations(string $city = '') {
+
+        if(isset($city)) {
+            $city = '?city=' . $city;
+            $country = '';
+        } else {
+            $country = '?countryCode=FI';
+        }
+
+        $result = CurlRequest::curlInitiate($this->apiURL . $country . $city);
+        $output = CurlRequest::getOutput($result);
+
+        $wheelChairAccessTrue = [];
+
+        foreach($output as $posti) {
+            if(in_array('wheelChairAccess => true', $posti)) {
+                array_push($wheelChairAccessTrue, $posti);
+            }
+        }
+
+        return $wheelChairAccessTrue;
     }
 
     public function getLocationsByCityRaw(string $city) {
@@ -158,37 +155,17 @@ class Locations {
         return $result;
     }
 
-    public function getLocationsByLatitudeRaw(float $lat, int $limit, float $distance) {
-        if($distance != 0 && $limit != 0) {
-            $distance = '';
+    public function getLocationsByCoordinatesRaw(float $lat, float $lng, int $limit = 10, int $distance = 0) {
+
+        if(isset($limit) && isset($distance)) {
+            $distance = '&distance' . $distance;
             $limit = '&top=' . $limit;
-        }
-        else if($limit == 0 && $distance != 0) {
-            $limit = '';
-            $distance = '&distance=' . $distance;
         } else {
             $distance = '';
             $limit = '&top=' . $limit;
         }
 
-        $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . $limit . $distance);
-        return $result;
-    }
-
-    public function getLocationsByLongitudeRaw(float $lng, int $limit, float $distance) {
-        if($distance != 0 && $limit != 0) {
-            $distance = '';
-            $limit = '&top=' . $limit;
-        }
-        else if($limit == 0 && $distance != 0) {
-            $limit = '';
-            $distance = '&distance=' . $distance;
-        } else {
-            $distance = '';
-            $limit = '&top=' . $limit;
-        }
-
-        $result = CurlRequest::curlInitiate($this->apiURL . '?lng=' . $lng . $limit . $distance);
+        $result = CurlRequest::curlInitiate($this->apiURL . '?lat=' . $lat . '&lng='. $lng . $limit . $distance);
         return $result;
     }
 
@@ -201,11 +178,25 @@ class Locations {
         return $result;
     }
 
-    private function checkIfNull($param) {
-        if($param == null) {
-            return true;
+    public function getAllWheelChairLocationsRaw(string $city = '') {
+        if(isset($city)) {
+            $city = '?city=' . $city;
+            $country = '';
+        } else {
+            $country = '?countryCode=FI';
         }
-        return false;
+
+        $result = CurlRequest::curlInitiate($this->apiURL . $country . $city);
+
+        $wheelChairAccessTrue = [];
+
+        foreach($output as $posti) {
+            if(in_array('wheelChairAccess => true', $posti)) {
+                array_push($wheelChairAccessTrue, $posti);
+            }
+        }
+
+        return $wheelChairAccessTrue;
     }
     
 }

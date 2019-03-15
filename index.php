@@ -28,7 +28,8 @@ foreach ($allLocations as $location) {
 //$arr = $locations->getLocationsByLatitude(61.021528, 0, 500);
 //$arr = $locations->getLocationsByLongitude(24.469359, 0, 1);
 //$arr = $locations->getGeographicalBoxByCoordinates(60.226850265683396, 24.861389789074657, 60.118482801480674, 25.00262781092524);
-$outputObjects = $locations->getLocationsByCity('Espoo');
+//$arr = $locations->getLocationsByCity('Espoo');
+$arr = $locations->getAllWheelChairLocations('Helsinki');
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +41,7 @@ $outputObjects = $locations->getLocationsByCity('Espoo');
     <title>Document</title>
 </head>
 <body>
-   <?php //print("<pre>" . print_r($outputObjects, true) . "</pre>") ?> 
-   <?php echo $outputObjects[0]['wheelChairAccess'] ?> 
+   <?php print("<pre>" . print_r($arr, true) . "</pre>") ?> 
+   <?php //echo $outputObjects[0]['wheelChairAccess'] ?> 
 </body>
 </html>
